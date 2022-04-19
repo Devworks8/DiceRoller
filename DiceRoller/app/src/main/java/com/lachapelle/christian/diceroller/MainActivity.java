@@ -2,13 +2,14 @@ package com.lachapelle.christian.diceroller;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,12 +31,15 @@ public class MainActivity extends AppCompatActivity {
     private ListView lstHistoryRef;
     private ArrayAdapter<String> lstSelectedAdapter;
     private ListView lstSelectedRef;
-    private TextView txtHistory;
+    SharedPreferences prefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false);
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         historyList = new ArrayList<>();
         currentHistoryList = new ArrayList<>();
@@ -85,18 +89,15 @@ public class MainActivity extends AppCompatActivity {
         lstHistoryAdapter = new ArrayAdapter<>(this, R.layout.history_layout, R.id.txtHistory, currentHistoryList);
         lstHistoryRef.setAdapter(lstHistoryAdapter);
 
-        lstHistoryRef.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String historyItem = (String) adapterView.getItemAtPosition(i);
+        lstHistoryRef.setOnItemLongClickListener((adapterView, view, i, l) -> {
+            String historyItem = (String) adapterView.getItemAtPosition(i);
 
-                historyList.remove(historyItem);
-                lstHistoryAdapter.notifyDataSetChanged();
+            historyList.remove(historyItem);
+            lstHistoryAdapter.notifyDataSetChanged();
 
-                updateScreen();
+            updateScreen();
 
-                return true;
-            }
+            return true;
         });
     }
 
@@ -116,9 +117,47 @@ public class MainActivity extends AppCompatActivity {
             toast.show();
 
             return true;
+        }else if (item.getItemId() == R.id.settings){
+            Intent settingsIntent = new Intent(getApplicationContext(), SettingsActivity.class);
+            startActivity(settingsIntent);
+
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+
+        for (int item = 0;; ++item){
+            final String historyItem = prefs.getString(String.valueOf(item), "");
+            if (!historyItem.equals("")){
+                historyList.add(historyItem);
+            }else{
+                break;
+            }
+        }
+        updateScreen();
+    }
+
+    @Override
+    protected void onStop(){
+        SharedPreferences.Editor editor = prefs.edit();
+        boolean saveHistory = prefs.getBoolean("save_history_pref", false);
+        if (saveHistory){
+            for (int item = 0; item < historyList.size(); ++item){
+                editor.putString(String.valueOf(item), historyList.get(item));
+            }
+            editor.apply();
+        }else{
+            editor.clear();
+            editor.putBoolean("save_history_pref", false);
+            editor.apply();
+        }
+
+        super.onStop();
     }
 
     private void updateScreen(){

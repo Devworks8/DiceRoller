@@ -3,6 +3,11 @@
     xmlns:app="http://shemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/settings"
+        android:title="Settings"
+        app:showAsAction="always"/>
+
+    <item
         android:id="@+id/about"
         android:title="About"
         app:showAsAction="always"/>
