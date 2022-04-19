@@ -111,13 +111,13 @@ public class Die
             numSides = 6;
             sideUp = setSideUp();
             this.showRoll = showRoll;
-            System.out.println(String.format("Creating a default d%d...", numSides));
+            //System.out.println(String.format("Creating a default d%d...", numSides));
         }
 
         public DieBuilder(int numSides, boolean showRoll)
         {
             this.showRoll = showRoll;
-            displayBuildMessage(numSides);
+            //displayBuildMessage(numSides);
         }
 
         public DieBuilder(String customDice, boolean showRoll)
@@ -207,18 +207,19 @@ public class Die
             }
             else
             {
-                this.numSides = findClosestSides(numSides);
+               //this.numSides = findClosestSides(numSides);
+                this.numSides = numSides;
             }
 
             sideUp = setSideUp();
 
             if (numSides == 100)
             {
-                System.out.println("Creating percentile die (a special d10)...");
+                //System.out.println("Creating percentile die (a special d10)...");
             }
             else
             {
-                System.out.println(String.format("Creating a d%d...", this.numSides));
+                //System.out.println(String.format("Creating a d%d...", this.numSides));
             }
         }
 
@@ -237,7 +238,6 @@ public class Die
         public static void resetDice()
         {
             customDice.clear();
-            System.out.println("Dice reset...");
         }
     }
 }
