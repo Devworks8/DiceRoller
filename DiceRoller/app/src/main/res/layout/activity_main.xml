@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -77,43 +78,43 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="10"
-            app:srcCompat="@android:drawable/ic_delete" />
+            android:src="@drawable/d4" />
         <ImageButton
             android:id="@+id/imgBtnD6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="10"
-            app:srcCompat="@android:drawable/ic_delete" />
+            android:src="@drawable/d6"/>
         <ImageButton
             android:id="@+id/imgBtnD8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="10"
-            app:srcCompat="@android:drawable/ic_delete" />
+            android:src="@drawable/d8" />
         <ImageButton
             android:id="@+id/imgBtnD10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="10"
-            app:srcCompat="@android:drawable/ic_delete" />
+            android:src="@drawable/d10" />
         <ImageButton
             android:id="@+id/imgBtnD12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="10"
-            app:srcCompat="@android:drawable/ic_delete" />
+            android:src="@drawable/d12"/>
         <ImageButton
             android:id="@+id/imgBtnD20"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="10"
-            app:srcCompat="@android:drawable/ic_delete" />
+            android:src="@drawable/d20"/>
         <ImageButton
             android:id="@+id/imgBtnCustom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="10"
-            app:srcCompat="@android:drawable/ic_delete" />
+            android:src="@drawable/custom"/>
     </LinearLayout>
 
 </LinearLayout>
