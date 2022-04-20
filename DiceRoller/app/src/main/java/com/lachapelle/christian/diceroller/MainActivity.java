@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         // Fix the screen orientation to portrait
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        //Disable Night mode
+        //Disable Night mode - Color scheme used as is, is good in both mode.
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         // Initialize Shared Preferences
