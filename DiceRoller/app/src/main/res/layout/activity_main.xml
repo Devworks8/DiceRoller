@@ -13,39 +13,40 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/txtHistory" />
+        android:text="@string/txtHistory"
+        style="@style/Labels"/>
 
     <ListView
         android:id="@+id/lstHistory"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="65"/>
+        android:layout_weight="65"
+        style="@style/ListTheme"/>
 
     <View
         android:id="@+id/divider3"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider" />
+        android:layout_height="4dp"
+        android:backgroundTint="@color/black"
+        android:background="@color/black" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/txtSelection" />
+        android:text="@string/txtSelection"
+        style="@style/Labels"/>
 
     <ListView
         android:id="@+id/lstSelected"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="35" />
+        android:layout_weight="35"
+        style="@style/ListTheme"/>
 
 
     <View
         android:id="@+id/divider4"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="4dp"
         android:layout_weight="65"
-        android:background="?android:attr/listDivider" />
+        android:background="@color/black" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,13 +58,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/btnReset" />
+            android:text="@string/btnReset"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            app:backgroundTint="@color/red"
+            style="@style/MainButtonAttributes"/>
+
         <Button
             android:id="@+id/btnRoll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/btnRoll" />
+            android:text="@string/btnRoll"
+            android:textAlignment="center"
+            app:backgroundTint="@color/green"
+            style="@style/MainButtonAttributes" />
 
     </LinearLayout>
 
@@ -75,46 +84,32 @@
 
         <ImageButton
             android:id="@+id/imgBtnD4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:src="@drawable/d4" />
+            android:src="@drawable/d4"
+            style="@style/ImgButtonTheme"/>
         <ImageButton
             android:id="@+id/imgBtnD6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:src="@drawable/d6"/>
+            android:src="@drawable/d6"
+            style="@style/ImgButtonTheme"/>
         <ImageButton
             android:id="@+id/imgBtnD8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:src="@drawable/d8" />
+            android:src="@drawable/d8"
+            style="@style/ImgButtonTheme"/>
         <ImageButton
             android:id="@+id/imgBtnD10"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:src="@drawable/d10" />
+            android:src="@drawable/d10"
+            style="@style/ImgButtonTheme"/>
         <ImageButton
             android:id="@+id/imgBtnD12"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:src="@drawable/d12"/>
+            android:src="@drawable/d12"
+            style="@style/ImgButtonTheme"/>
         <ImageButton
             android:id="@+id/imgBtnD20"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:src="@drawable/d20"/>
+            android:src="@drawable/d20"
+            style="@style/ImgButtonTheme"/>
         <ImageButton
             android:id="@+id/imgBtnCustom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:src="@drawable/custom"/>
+            android:src="@drawable/custom"
+            style="@style/ImgButtonTheme"/>
     </LinearLayout>
 
 </LinearLayout>

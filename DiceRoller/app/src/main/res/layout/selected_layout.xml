@@ -22,17 +22,14 @@
     <TextView
         android:id="@+id/txtSelected"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_weight="10"
         android:text="TextView"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        style="@style/ListTextTheme" />
 
     <Button
         android:id="@+id/btnSelectedRemove"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:text="@string/btnRemove"
-        android:onClick="deleteDie"/>
+        android:onClick="deleteDie"
+        style="@style/ListButtons"/>
 </LinearLayout>

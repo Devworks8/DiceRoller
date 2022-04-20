@@ -4,8 +4,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,58 +35,23 @@ public class MainActivity extends AppCompatActivity {
     private ListView lstSelectedRef;
     SharedPreferences prefs;
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Fix the screen orientation to portrait
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        // Initialize Shared Preferences
         PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false);
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
+        // Setup History ListView
         historyList = new ArrayList<>();
         currentHistoryList = new ArrayList<>();
-        lstHistoryRef = (ListView) findViewById(R.id.lstHistory);
-
-        dieList = new ArrayList<>();
-        currentDieList = new ArrayList<>();
-        lstSelectedRef = (ListView) findViewById(R.id.lstSelected);
-
-        ImageButton iBtnD4 = (ImageButton) findViewById(R.id.imgBtnD4);
-        iBtnD4.setOnClickListener(view -> diceManager("d4", false));
-
-        ImageButton iBtnD6 = (ImageButton) findViewById(R.id.imgBtnD6);
-        iBtnD6.setOnClickListener(view -> diceManager("d6", false));
-
-        ImageButton iBtnD8 = (ImageButton) findViewById(R.id.imgBtnD8);
-        iBtnD8.setOnClickListener(view -> diceManager("d8", false));
-
-        ImageButton iBtnD10 = (ImageButton) findViewById(R.id.imgBtnD10);
-        iBtnD10.setOnClickListener(view -> diceManager("d10", false));
-
-        ImageButton iBtnD12 = (ImageButton) findViewById(R.id.imgBtnD12);
-        iBtnD12.setOnClickListener(view -> diceManager("d12", false));
-
-        ImageButton iBtnD20 = (ImageButton) findViewById(R.id.imgBtnD20);
-        iBtnD20.setOnClickListener(view -> diceManager("d20", false));
-
-        ImageButton iBtnCustom = (ImageButton) findViewById(R.id.imgBtnCustom);
-        iBtnCustom.setOnClickListener(view -> diceManager("custom", true));
-
-        Button btnReset = (Button) findViewById(R.id.btnReset);
-        btnReset.setOnClickListener(view -> reset(false));
-        btnReset.setOnLongClickListener(view -> {
-            reset(true);
-
-            return true;
-        });
-
-        Button btnRoll = (Button) findViewById(R.id.btnRoll);
-        btnRoll.setOnClickListener(view -> diceManager("roll", false));
-
-        lstSelectedAdapter = new ArrayAdapter<>(this, R.layout.selected_layout, R.id.txtSelected, currentDieList);
-        lstSelectedRef.setAdapter(lstSelectedAdapter);
-
-        lstSelectedRef.addOnLayoutChangeListener((view, i, i1, i2, i3, i4, i5, i6, i7) -> updateImages());
+        lstHistoryRef = findViewById(R.id.lstHistory);
 
         lstHistoryAdapter = new ArrayAdapter<>(this, R.layout.history_layout, R.id.txtHistory, currentHistoryList);
         lstHistoryRef.setAdapter(lstHistoryAdapter);
@@ -99,8 +66,53 @@ public class MainActivity extends AppCompatActivity {
 
             return true;
         });
+
+        // Setup Selected die ListView
+        dieList = new ArrayList<>();
+        currentDieList = new ArrayList<>();
+        lstSelectedRef = findViewById(R.id.lstSelected);
+
+        lstSelectedAdapter = new ArrayAdapter<>(this, R.layout.selected_layout, R.id.txtSelected, currentDieList);
+        lstSelectedRef.setAdapter(lstSelectedAdapter);
+
+        // Update associated die image on ListView layout change
+        lstSelectedRef.addOnLayoutChangeListener((view, i, i1, i2, i3, i4, i5, i6, i7) -> updateImages());
+
+        // Setup button click listeners
+        ImageButton iBtnD4 = findViewById(R.id.imgBtnD4);
+        iBtnD4.setOnClickListener(view -> diceManager("d4", false));
+
+        ImageButton iBtnD6 = findViewById(R.id.imgBtnD6);
+        iBtnD6.setOnClickListener(view -> diceManager("d6", false));
+
+        ImageButton iBtnD8 = findViewById(R.id.imgBtnD8);
+        iBtnD8.setOnClickListener(view -> diceManager("d8", false));
+
+        ImageButton iBtnD10 = findViewById(R.id.imgBtnD10);
+        iBtnD10.setOnClickListener(view -> diceManager("d10", false));
+
+        ImageButton iBtnD12 = findViewById(R.id.imgBtnD12);
+        iBtnD12.setOnClickListener(view -> diceManager("d12", false));
+
+        ImageButton iBtnD20 = findViewById(R.id.imgBtnD20);
+        iBtnD20.setOnClickListener(view -> diceManager("d20", false));
+
+        ImageButton iBtnCustom = findViewById(R.id.imgBtnCustom);
+        iBtnCustom.setOnClickListener(view -> diceManager("custom", true));
+
+        Button btnReset = findViewById(R.id.btnReset);
+        btnReset.setOnClickListener(view -> reset(false));
+        btnReset.setOnLongClickListener(view -> {
+            reset(true);
+
+            return true;
+        });
+
+        Button btnRoll = findViewById(R.id.btnRoll);
+        btnRoll.setOnClickListener(view -> diceManager("roll", false));
     }
 
+    // Setup Menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -127,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // Load saved data from Shared Preferences
     @Override
     protected void onStart(){
         super.onStart();
@@ -142,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
         updateScreen();
     }
 
+    // Save or Clear data to Shared Preferences
     @Override
     protected void onStop(){
         SharedPreferences.Editor editor = prefs.edit();
@@ -150,16 +164,16 @@ public class MainActivity extends AppCompatActivity {
             for (int item = 0; item < historyList.size(); ++item){
                 editor.putString(String.valueOf(item), historyList.get(item));
             }
-            editor.apply();
         }else{
             editor.clear();
             editor.putBoolean("save_history_pref", false);
-            editor.apply();
         }
+        editor.apply();
 
         super.onStop();
     }
 
+    // Update the ViewLists
     private void updateScreen(){
         lstHistoryAdapter.clear();
         lstHistoryAdapter.addAll(historyList);
@@ -169,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
         lstSelectedAdapter.addAll(dieList);
     }
 
+    // Update the Image of added die to Selection List to correspond to the correct die
     private void updateImages(){
         TextView dieType;
         ImageView dieImage;
@@ -176,8 +191,8 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i < lstSelectedRef.getChildCount(); i++){
             v = lstSelectedRef.getChildAt(i);
-            dieType = (TextView) v.findViewById(R.id.txtSelected);
-            dieImage = (ImageView) v.findViewById(R.id.ivDie);
+            dieType = v.findViewById(R.id.txtSelected);
+            dieImage = v.findViewById(R.id.ivDie);
 
             switch (dieType.getText().toString()){
                 case "d4":
@@ -205,7 +220,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Perform all Die class related functions
     private void diceManager(String die, boolean custom){
+        // Roll the selected dice
         if (die.equals("roll")){
             Spinner numDice;
             TextView dieType;
@@ -214,8 +231,8 @@ public class MainActivity extends AppCompatActivity {
 
             for (int i = 0; i < lstSelectedRef.getChildCount(); i++){
                 v = lstSelectedRef.getChildAt(i);
-                numDice = (Spinner) v.findViewById(R.id.spnSelectedTotal);
-                dieType = (TextView) v.findViewById(R.id.txtSelected);
+                numDice = v.findViewById(R.id.spnSelectedTotal);
+                dieType = v.findViewById(R.id.txtSelected);
 
                 if (diceString.length() != 0){
                     diceString.append(";").append(numDice.getSelectedItem()).append(dieType.getText().toString().replace(" added.", ""));
@@ -224,13 +241,17 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-            new Die.DieBuilder(diceString.toString(), false).build();
-            Die.DieBuilder.rollAll();
+            if (diceString.length() != 0) {
+                new Die.DieBuilder(diceString.toString(), false).build();
+                Die.DieBuilder.rollAll();
 
-            historyList.add(0, getRollString(diceString.toString()).replace(";", " + "));
-            currentHistoryList.add(0, getRollString(diceString.toString()).replace(";", " + "));
-            lstHistoryAdapter.notifyDataSetChanged();
+                // Update the Roll History
+                historyList.add(0, getRollString(diceString.toString()).replace(";", " + "));
+                currentHistoryList.add(0, getRollString(diceString.toString()).replace(";", " + "));
+                lstHistoryAdapter.notifyDataSetChanged();
+            }
         }
+        // Ask for requested die type and add it to the Selected die list
         else if (custom){
             final EditText txtDieType = new EditText(this);
             AlertDialog dialog = new AlertDialog.Builder(this)
@@ -238,11 +259,17 @@ public class MainActivity extends AppCompatActivity {
                     .setMessage("Enter desired die.\nExample: d100")
                     .setView(txtDieType)
                     .setPositiveButton("Add", (dialogInterface, i) -> {
-                        String die1 = txtDieType.getText().toString();
+                        String customDie = txtDieType.getText().toString();
 
-                        if (!currentDieList.contains(die1)) {
-                            currentDieList.add(die1);
-                            dieList.add(die1);
+                        // Do not allow duplicates or a die count greater than 7
+                        if (!currentDieList.contains(customDie) && lstSelectedRef.getCount() < 7) {
+                            currentDieList.add(customDie);
+                            dieList.add(customDie);
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(),
+                                    "The die already exists or the maximum die count of 7 has been reached.",
+                                    Toast.LENGTH_LONG).show();
                         }
                     })
                     .setNegativeButton("Cancel", null)
@@ -250,23 +277,31 @@ public class MainActivity extends AppCompatActivity {
             dialog.show();
 
         }
+        // Add a die to the Selected die list
         else {
-            if (!currentDieList.contains(die)) {
+            // Do not allow duplicates or a die count greater than 7
+            if (!currentDieList.contains(die) && lstSelectedRef.getCount() < 7) {
                 currentDieList.add(die);
                 dieList.add(die);
+            }else{
+                Toast.makeText(getApplicationContext(),
+                        "The die already exists or the maximum die count of 7 has been reached.",
+                        Toast.LENGTH_LONG).show();
             }
         }
 
         updateScreen();
     }
 
+    // Return formatted result string
     private String getRollString(String diceString){
         return diceString + " = " + Die.DieBuilder.getTotal();
     }
 
+    // Remove die from Selected die list
     public void deleteDie(View view){
         View parent = (View) view.getParent();
-        TextView txtDie = (TextView) parent.findViewById(R.id.txtSelected);
+        TextView txtDie = parent.findViewById(R.id.txtSelected);
         String die = String.valueOf(txtDie.getText());
 
         dieList.remove(die);
@@ -274,9 +309,10 @@ public class MainActivity extends AppCompatActivity {
         updateScreen();
     }
 
+    // Reroll previously rolled dice from History list
     public void reroll(View view){
         View parent = (View) view.getParent();
-        TextView txtDie = (TextView) parent.findViewById(R.id.txtHistory);
+        TextView txtDie = parent.findViewById(R.id.txtHistory);
         String historyString = String.valueOf(txtDie.getText()).replace(" + ", ";").split(" = ")[0];
 
         new Die.DieBuilder(historyString, false).build();
@@ -289,6 +325,7 @@ public class MainActivity extends AppCompatActivity {
         updateScreen();
     }
 
+    // Reset Selected dice list or all
     private void reset(boolean all){
         if (all){
             historyList.clear();
