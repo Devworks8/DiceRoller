@@ -2,6 +2,7 @@ package com.lachapelle.christian.diceroller;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.PreferenceManager;
 
 import android.annotation.SuppressLint;
@@ -43,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Fix the screen orientation to portrait
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        //Disable Night mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         // Initialize Shared Preferences
         PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false);
