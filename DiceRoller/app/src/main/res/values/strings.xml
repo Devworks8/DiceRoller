@@ -3,7 +3,7 @@
     <string name="btnReset">Reset</string>
     <string name="btnRoll">Roll</string>
     <string name="txtHistory">Roll History</string>
-    <string name="txtSelection">Selected Dice(s)</string>
+    <string name="txtSelection">Selected Dice</string>
     <string name="btnReroll">Reroll</string>
     <string name="btnRemove">Remove</string>
     <string name="title_activity_settings">SettingsActivity</string>

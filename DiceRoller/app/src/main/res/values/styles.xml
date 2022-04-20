@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Reset and Roll button -->
+    <style name="MainButtonAttributes" parent="Widget.AppCompat.Button">
+        <item name="android:paddingLeft">50sp</item>
+        <item name="android:paddingRight">50sp</item>
+    </style>
+    <!-- Labels -->
+    <style name="Labels" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/LabelRed</item>
+        <item name="android:background">@color/black</item>
+    </style>
+    <!-- Listviews buttons -->
+    <style name="ListButtons" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+    <!-- Listviews -->
+    <style name="ListTheme" parent="Widget.AppCompat.ListView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/ListGreyBg</item>
+    </style>
+    <!-- Listviews texts -->
+    <style name="ListTextTheme" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <!-- Image button -->
+    <style name="ImgButtonTheme" parent="Widget.AppCompat.ImageButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">10</item>
+    </style>
+
+</resources>
