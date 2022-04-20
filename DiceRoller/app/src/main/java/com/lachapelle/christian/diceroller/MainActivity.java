@@ -127,9 +127,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         if (item.getItemId() == R.id.about) {
-            Toast toast = Toast.makeText(getApplicationContext(), "Created by: Christian Lachapelle\n" +
-                    "Student #: A00230066\n" +
-                    "Course Code: IOT-1009", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getApplicationContext(), "Created by: Christian Lachapelle \n" +
+                    "Stdt #: A00230066   Course: IOT-1009", Toast.LENGTH_SHORT);
             toast.show();
 
             return true;
@@ -265,14 +264,19 @@ public class MainActivity extends AppCompatActivity {
                     .setPositiveButton("Add", (dialogInterface, i) -> {
                         String customDie = txtDieType.getText().toString();
 
-                        // Do not allow duplicates or a die count greater than 7
-                        if (!currentDieList.contains(customDie) && lstSelectedRef.getCount() < 7) {
-                            currentDieList.add(customDie);
-                            dieList.add(customDie);
-                        }
-                        else{
+                        if (customDie.equals("d2147483646")) {
+                            // Do not allow duplicates or a die count greater than 7
+                            if (!currentDieList.contains(customDie) && lstSelectedRef.getCount() < 7) {
+                                currentDieList.add(customDie);
+                                dieList.add(customDie);
+                            } else {
+                                Toast.makeText(getApplicationContext(),
+                                        "The die already exists or the maximum die count of 7 has been reached.",
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        }else{
                             Toast.makeText(getApplicationContext(),
-                                    "The die already exists or the maximum die count of 7 has been reached.",
+                                    "Invalid die value. \nMaximum die value: d2147483646",
                                     Toast.LENGTH_LONG).show();
                         }
                     })
