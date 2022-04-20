@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +23,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -127,9 +130,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         if (item.getItemId() == R.id.about) {
-            Toast toast = Toast.makeText(getApplicationContext(), "Created by: Christian Lachapelle \n" +
-                    "Stdt #: A00230066   Course: IOT-1009", Toast.LENGTH_SHORT);
-            toast.show();
+            Intent aboutIntent = new Intent(getApplicationContext(), AboutActivity.class);
+            startActivity(aboutIntent);
 
             return true;
         }else if (item.getItemId() == R.id.settings){
@@ -264,20 +266,20 @@ public class MainActivity extends AppCompatActivity {
                     .setPositiveButton("Add", (dialogInterface, i) -> {
                         String customDie = txtDieType.getText().toString();
 
-                        if (customDie.equals("d2147483646")) {
-                            // Do not allow duplicates or a die count greater than 7
-                            if (!currentDieList.contains(customDie) && lstSelectedRef.getCount() < 7) {
-                                currentDieList.add(customDie);
-                                dieList.add(customDie);
-                            } else {
+                        // Do not allow duplicates or a die count greater than 7
+                        if (!currentDieList.contains(customDie) && lstSelectedRef.getCount() < 7) {
+                            currentDieList.add(customDie);
+                            dieList.add(customDie);
+                        } else {
+                            if(currentDieList.contains(customDie)) {
                                 Toast.makeText(getApplicationContext(),
-                                        "The die already exists or the maximum die count of 7 has been reached.",
+                                        "The die already exists.",
+                                        Toast.LENGTH_LONG).show();
+                            }else{
+                                Toast.makeText(getApplicationContext(),
+                                        "The maximum die count of 7 has been reached.",
                                         Toast.LENGTH_LONG).show();
                             }
-                        }else{
-                            Toast.makeText(getApplicationContext(),
-                                    "Invalid die value. \nMaximum die value: d2147483646",
-                                    Toast.LENGTH_LONG).show();
                         }
                     })
                     .setNegativeButton("Cancel", null)
@@ -292,9 +294,15 @@ public class MainActivity extends AppCompatActivity {
                 currentDieList.add(die);
                 dieList.add(die);
             }else{
-                Toast.makeText(getApplicationContext(),
-                        "The die already exists or the maximum die count of 7 has been reached.",
-                        Toast.LENGTH_LONG).show();
+                if(currentDieList.contains(die)) {
+                    Toast.makeText(getApplicationContext(),
+                            "The die already exists.",
+                            Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(getApplicationContext(),
+                            "The maximum die count of 7 has been reached.",
+                            Toast.LENGTH_LONG).show();
+                }
             }
         }
 

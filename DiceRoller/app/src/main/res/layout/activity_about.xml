@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AboutActivity">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="341dp"
+        android:layout_height="84dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="601dp"
+        android:text="Created by: Christian Lachapelle\nStudent Number: A00230066\nCourse Code: IOT-1009\n\nSource code can be found on GitHub."
+        tools:layout_editor_absoluteX="44dp"
+        tools:layout_editor_absoluteY="68dp"
+        style="@style/ListTextTheme"/>
+
+    <TextView
+        android:id="@+id/txtWebsite"
+        style="@style/ListTextTheme"
+        android:layout_width="325dp"
+        android:layout_height="46dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="37dp"
+        android:layout_marginBottom="555dp"
+        android:clickable="true"
+        android:onClick="gotoWebsite"
+        android:text="@string/website" />
+</RelativeLayout>
