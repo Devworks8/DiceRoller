@@ -20,15 +20,39 @@
         style="@style/ListTextTheme"/>
 
     <TextView
-        android:id="@+id/txtWebsite"
+        android:id="@+id/txtGithub"
         style="@style/ListTextTheme"
-        android:layout_width="325dp"
-        android:layout_height="46dp"
+        android:layout_width="361dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="582dp"
+        android:clickable="true"
+        android:onClick="gotoWebsite"
+        android:text="@string/github" />
+
+    <TextView
+        android:id="@+id/textView4"
+        style="@style/ListTextTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="37dp"
-        android:layout_marginBottom="555dp"
+        android:layout_marginBottom="551dp"
+        android:text="The source code is subject to the following license:" />
+
+    <TextView
+        android:id="@+id/txtLicense"
+        style="@style/ListTextTheme"
+        android:layout_width="287dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="75dp"
+        android:layout_marginBottom="530dp"
         android:clickable="true"
         android:onClick="gotoWebsite"
-        android:text="@string/website" />
+        android:text="@string/license" />
 </RelativeLayout>
